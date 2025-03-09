@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using WebApplication1.Models;
 
-    [Route("rest/student")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
     {

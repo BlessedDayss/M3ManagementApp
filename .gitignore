@@ -36,3 +36,4 @@ WebApplication1.http
 WebApplication1.sln.DotSettings.user
 appsettings.Development.json
 Properties/launchSettings.json
+ConnectionDB.config
