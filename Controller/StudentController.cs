@@ -18,9 +18,19 @@
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
         {
-            return await _context.Students.ToListAsync();
+            return await _context.Student.ToListAsync();
         }
 
+        [HttpGet("{Id}")]
+        public async Task<ActionResult<Student>> GetStudent(int Id)
+        {
+            var student = await _context.Student.FindAsync(Id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return student;
+        }
     }
     
 }
