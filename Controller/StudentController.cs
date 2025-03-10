@@ -45,6 +45,15 @@
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
+            
+            bool StudentExists = await _context.Student
+            .AnyAsync(s => s.Name == student.Name && s.Surname == student.Surname);
+
+            if (StudentExists)
+            {
+                return BadRequest("Error: A student with the same name and surname already exists");
+            }
+            
             if (student.Age <= 0)
             {
                 student.Age = new Random().Next(15, 25);
