@@ -2,7 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+.AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve);
+
 builder.Services.AddDbContext<M3ManagmentContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionDB"));

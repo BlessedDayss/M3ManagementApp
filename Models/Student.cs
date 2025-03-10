@@ -1,4 +1,6 @@
-﻿namespace WebApplication1.Models
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace WebApplication1.Models
 {
     public sealed class Student
     {
@@ -16,6 +18,7 @@
 
         public int TeacherId { get; set; }
 
+        [ValidateNever]
         public Teacher Teacher { get; set; } = null!;
     }
 }

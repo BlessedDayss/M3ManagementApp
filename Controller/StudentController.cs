@@ -45,9 +45,38 @@
         [HttpPost]
         public async Task<ActionResult<Student>> PostStudent(Student student)
         {
+            if (student.Age <= 0)
+            {
+                student.Age = new Random().Next(15, 25);
+            }
+            
+            if (student.Grade <= 0)
+            {
+                student.Grade = new Random().Next(1, 10);
+            }
+
+            if (student.Gpa <= 0)
+            {
+                student.Gpa = new Random().Next(1, 5);
+            }
+            
+            if (student.TeacherId == 0)
+            {
+                var randomTeacher = await _context.Teacher
+                    .OrderBy(t => Guid.NewGuid())
+                    .FirstOrDefaultAsync();
+
+                if (randomTeacher == null)
+                {
+                    return BadRequest("Cannot find any teacher, please add teacher first");
+                }
+
+                student.TeacherId = randomTeacher.Id;
+            }
             _context.Student.Add(student);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetStudent", new { Id = student.Id}, student);
+
+            return CreatedAtAction("GetStudent", new { Id = student.Id }, student);
         }
 
         [HttpPut("{Id}")]
